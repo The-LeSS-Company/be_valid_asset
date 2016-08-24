@@ -63,7 +63,7 @@ RSpec.describe 'be_valid_feed' do
       BeValidAsset::Configuration.display_invalid_content = false
     end
 
-    it "should fail unless resposne is HTTP OK" do
+    it "should fail unless response is HTTP OK" do
       feed = get_file('valid_feed.xml')
 
       r = Net::HTTPServiceUnavailable.new('1.1', 503, 'Service Unavailable')
@@ -73,7 +73,7 @@ RSpec.describe 'be_valid_feed' do
 
       expect {
         expect(feed).to be_valid_feed
-      }.to raise_error
+      }.to raise_error(RuntimeError, "HTTP error: 503")
     end
 
     it "should mark test as pending if ENV['NONET'] is true" do
@@ -148,7 +148,7 @@ RSpec.describe 'be_valid_feed' do
 
       expect {
         expect(feed).to be_valid_feed
-      }.to raise_error
+      }.to raise_error(RuntimeError, "HTTP error: 503")
       expect(Dir.glob(BeValidAsset::Configuration.cache_path + '/*').size).to eql(count)
     end
 

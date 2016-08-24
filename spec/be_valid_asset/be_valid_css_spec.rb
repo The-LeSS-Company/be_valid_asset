@@ -57,7 +57,7 @@ RSpec.describe 'be_valid_css' do
       BeValidAsset::Configuration.display_invalid_content = false
     end
 
-    it "should fail unless resposne is HTTP OK" do
+    it "should fail unless response is HTTP OK" do
       css = get_file('valid.css')
 
       r = Net::HTTPServiceUnavailable.new('1.1', 503, 'Service Unavailable')
@@ -67,7 +67,7 @@ RSpec.describe 'be_valid_css' do
 
       expect {
         expect(css).to be_valid_css
-      }.to raise_error
+      }.to raise_error(RuntimeError, "HTTP error: 503")
     end
 
     it "should mark test as pending if ENV['NONET'] is true" do
@@ -165,7 +165,7 @@ RSpec.describe 'be_valid_css' do
 
       expect {
         expect(css).to be_valid_css
-      }.to raise_error
+      }.to raise_error(RuntimeError, "HTTP error: 503")
       expect(Dir.glob(BeValidAsset::Configuration.cache_path + '/*').size).to eql(count)
     end
 

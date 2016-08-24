@@ -10,14 +10,6 @@ To use be_valid_asset in your project, add it to your Gemfile:
 gem 'be_valid_asset'
 ```
 
-Alternatively you can install it as a Rails plugin:
-
-```ruby
-./script/plugin install git://github.com/unboxed/be_valid_asset.git
-```
-
-(Warning: This method is not recommended, we strongly encourage you to manage gem dependencies via [Bundler](http://gembundler.com/))
-
 Add the following to `spec/support/be_valid_asset.rb`:
 
 ```ruby
@@ -29,20 +21,6 @@ BeValidAsset::Configuration.cache_path = Rails.root.join('tmp', 'be_valid_asset_
 ```
 
 Note: For older versions of RSpec you'll need to require `be_valid_asset.rb` from `spec_helper.rb`.
-
-Note: If you get ``NameError: uninitialized constant RSpec::Core`` when running your specs make the following changes:
-
-In your Gemfile:
-
-```ruby
-gem 'be_valid_asset', require: false
-```
-
-At the top of `spec/support/be_valid_asset.rb`:
-
-```ruby
-require 'be_valid_asset.rb'
-```
 
 ## Usage
 

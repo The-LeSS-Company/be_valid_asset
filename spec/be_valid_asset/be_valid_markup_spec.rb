@@ -148,7 +148,7 @@ RSpec.describe 'be_valid_markup' do
       }.to raise_error(SpecFailed)
     end
 
-    it "should fail unless resposne is HTTP OK" do
+    it "should fail unless response is HTTP OK" do
       html = get_file('valid.html')
 
       r = Net::HTTPServiceUnavailable.new('1.1', 503, 'Service Unavailable')
@@ -158,7 +158,7 @@ RSpec.describe 'be_valid_markup' do
 
       expect {
         expect(html).to be_valid_markup
-      }.to raise_error
+      }.to raise_error(RuntimeError, "HTTP error: 503")
     end
 
     it "should mark test as pending if network tests are disabled" do
@@ -235,7 +235,7 @@ RSpec.describe 'be_valid_markup' do
 
       expect {
         expect(html).to be_valid_markup
-      }.to raise_error
+      }.to raise_error(RuntimeError, "HTTP error: 503")
       expect(Dir.glob(BeValidAsset::Configuration.cache_path + '/*').size).to eql(count)
     end
 
